@@ -1,34 +1,28 @@
-package router
+#!/bin/bash
+# This script calculates simple interest given principal,
+# annual rate of interest and time period in years.
 
-import (
-	"api-fiber-gorm/handler"
-	"api-fiber-gorm/middleware"
+# Do not use this in production. Sample purpose only.
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-)
+# Author: Upkar Lidder (IBM)
+# Additional Authors:
+# A name
 
-// SetupRoutes setup router api
-func SetupRoutes(app *fiber.App) {
-	// Middleware
-	api := app.Group("/api", logger.New())
-	api.Get("/", handler.Hello)
+# Input:
+# p, principal amount
+# t, time period in years
+# r, annual rate of interest
 
-	// Auth
-	auth := api.Group("/auth")
-	auth.Post("/login", handler.Login)
+# Output:
+# simple interest = p*t*r
 
-	// User
-	user := api.Group("/user")
-	user.Get("/:id", handler.GetUser)
-	user.Post("/", handler.CreateUser)
-	user.Patch("/:id", middleware.Protected(), handler.UpdateUser)
-	user.Delete("/:id", middleware.Protected(), handler.DeleteUser)
+echo"Enter the principal:"
+read p    
+echo"Enter rate of interest per year:"
+read r    
+echo"Enter time period in years:"
+read t     
 
-	// Product
-	product := api.Group("/product")
-	product.Get("/", handler.GetAllProducts)
-	product.Get("/:id", handler.GetProduct)
-	product.Post("/", middleware.Protected(), handler.CreateProduct)
-	product.Delete("/:id", middleware.Protected(), handler.DeleteProduct)
-}
+s=`expr $p \* $t \* $r / 100`    
+echo"The simple interest is: "
+echo$s
